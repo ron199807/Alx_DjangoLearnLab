@@ -1,41 +1,44 @@
 # Create Operation
 
 ## Command:
-'''python
-
+```python
+# Create a new Book instance
 book = Book.objects.create(title="1984", author="George Orwell", publication_year=1949)
 
-# output
 # Book: 1984
 
-# retrieve operation
 
-# Command:
-'''python
+# Retrieve Operation
 
-book = Book.object.get(id = 1)
+## Command:
+```python
+# Retrieve the book with ID 1
+book = Book.objects.get(id=1)
 print(book.title, book.author, book.publication_year)
 
-# output
-# 1984 George Orwell
+# 1984 George Orwell 1949
 
-# update operation
 
-# command:
-''' python
+# Update Operation
+
+## Command:
+```python
+# Update the book's title
 book.title = "Nineteen Eighty-Four"
 book.save()
-# output
+
 # Book: Nineteen Eighty-Four
 
-# delete the book instance
 
-# command
-''' python
+# Delete Operation
+
+## Command:
+```python
+# Delete the book instance
 book.delete()
-# confirming that there are no books left
+
+# Confirming that there are no books left
 books = Book.objects.all()
 print(books)
 
-# output
 # QuerySet []
