@@ -6,3 +6,6 @@ book.delete()
 # confirming that there are no books left
 books = Book.objects.all()
 print(books)
+
+# output
+# QuerySet []
