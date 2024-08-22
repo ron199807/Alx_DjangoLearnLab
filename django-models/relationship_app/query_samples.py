@@ -1,7 +1,7 @@
 from relationship_app.models import Author, Book, Librarian, Library
 
 def book_by_author(author_name):
-    author = Author.objects.get(name = author_name)
+    author = Author.objects.get(name=author_name)
     books = library.books.all()
     return books
 
