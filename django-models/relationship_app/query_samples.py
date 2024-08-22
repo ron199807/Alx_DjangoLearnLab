@@ -6,8 +6,8 @@ def book_by_author(author_name):
     return books
 
 def librarian_for_library(library_name):
-    library = Library.objects.get(name = library_name)
-    librarian = Librarian.objects.get(library = library)
+    library = Library.objects.get(name=library_name)
+    librarian = Librarian.objects.get(library=library)
     return librarian
 
 if __name__ == "__main__":
