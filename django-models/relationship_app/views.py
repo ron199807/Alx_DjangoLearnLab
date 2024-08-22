@@ -4,7 +4,7 @@ from .models import Book
 # Function based view to list all books
 def list_books(request):
     books = Book.objects.all()  # Fetch all books from the database
-    return render(request, 'list_books.html', {'books': books})
+    return render(request, 'relationship_app/list_books.html', {'books': books})
 
 
     from django.views.generic.detail import DetailView
