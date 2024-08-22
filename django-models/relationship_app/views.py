@@ -30,12 +30,12 @@ def register(request):
             return redirect('list_books')  # Redirect to a view after registration
     else:
         form = UserCreationForm()
-    return render(request, 'register.html', {'form': form})
+    return render(request, 'relationship_app/register.html', {'form': form})
 
 # Use Django's built-in LoginView
 class CustomLoginView(LoginView):
-    template_name = 'login.html'
+    template_name = 'relationship_app/login.html'
 
 # Use Django's built-in LogoutView
 class CustomLogoutView(LogoutView):
-    template_name = 'logout.html'
+    template_name = 'relationship_app/logout.html'
