@@ -6,6 +6,7 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import user_passes_test, permission_required
 from django.views.generic.detail import DetailView
 from .models import Library
+from django.contrib.auth.decorators import permission_required, relationahip_app.can_change_book, relationahip_app.can_add_book, relationahip_app.can_delete_book
 
 # Function based view to list all books
 def list_books(request):
