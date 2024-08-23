@@ -60,7 +60,7 @@ class Book(models.Model):
     title = models.CharField(max_length=200)
     author = models.ForeignKey('Author', on_delete.CASCADE)
 
-class meta:
+class Meta:
     permissions = [
         ('can_add_book', 'Can add book'),
         ('can_change_book', 'Can change book'),
