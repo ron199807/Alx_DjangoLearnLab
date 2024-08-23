@@ -58,7 +58,7 @@ class Librarian(models.Model):
 # book models
 class Book(models.Model):
     title = models.CharField(max_length=200)
-    author = models.ForeignKey('Author', on_delete.CASCADE)
+    author = models.CharField(max_length=200)
 
 class Meta:
     permissions = [
