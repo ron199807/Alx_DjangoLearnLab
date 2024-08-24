@@ -18,4 +18,4 @@ class CustomUserAdmin(UserAdmin):
         (None, {'fields': ('date_of_birth', 'profile_photo')}),
     )
 
-    admin.site.register(CustomeUser, CustomUserAdmin)
+    admin.site.register(CustomUser, CustomUserAdmin)
