@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser, BaseUserMnager
+from django.contrib.auth.models import AbstractUser, BaseUserManager
 
 
 class Book(models.Model):
@@ -17,7 +17,7 @@ class CustomUser(AbstractUser):
 
     objects = CustomeUserManager()
 
-class CustomUserManager(BaseUserMnager):
+class CustomUserManager(BaseUserManager):
 
     def create_user(self, username, email, date_of_birth, password=None, **extra_fields):
         if not email:
