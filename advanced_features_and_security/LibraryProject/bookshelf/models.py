@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser, BaseUserMnager
+from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import CustomUser
@@ -21,7 +21,7 @@ class CustomUser(AbstractUser):
 
     objects = CustomeUserManager()
 
-class CustomUserManager(BaseUserMnager):
+class CustomUserManager(BaseUserManager):
 
     def create_user(self, username, email, date_of_birth, password=None, **extra_fields):
         if not email:
@@ -46,7 +46,7 @@ class CustomUserAdmin(UserAdmin):
 
     admin.site.register(CustomeUser, CustomUserAdmin)
 
-    
+
 
 
 
