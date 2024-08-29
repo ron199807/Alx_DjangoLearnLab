@@ -20,6 +20,6 @@ from django.urls import path
 from .views import BookListCreateAPIView
 
 urlpatterns = [
-    path("api/books", views.BookListCreateAPIView.as_view(), name="book_list_create"),
+    path("api.urls", views.BookListCreateAPIView.as_view(), name="book_list_create"),
     path('admin/', admin.site.urls),
 ]
