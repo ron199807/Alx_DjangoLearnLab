@@ -11,6 +11,10 @@ from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from .forms import CommentForm
 
+from django.db.models import Q
+from .models import Post
+from taggit.models import Tag
+
 
 
 
@@ -155,3 +159,24 @@ class CommentDeleteView(DeleteView):
 
     def get_queryset(self):
         return Comment.objects.filter(author=self.request.user)
+
+
+
+
+
+def post_search(request):
+    query = request.GET.get('q')
+    results = Post.objects.none()
+    if query:
+        results = Post.objects.filter(
+            Q(title__icontains=query) | Q(content__icontains=query) | Q(tags__name__in=[query])
+        ).distinct()
+
+    return render(request, 'blog/post_search.html', {'results': results, 'query': query})
+
+
+# tags views
+def post_by_tag(request, tag_slug):
+    tag = get_object_or_404(Tag, slug=tag_slug)
+    posts = Post.objects.filter(tags__in=[tag])
+    return render(request, 'blog/post_by_tag.html', {'tag': tag, 'posts': posts})

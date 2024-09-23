@@ -29,6 +29,10 @@ path('login/', CustomLoginView.as_view(), name='login'),
       path('post/<int:pk>/comments/new/', CommentCreateView.as_view(), name='add-comment'),
     path('comment/<int:pk>/update/', CommentUpdateView.as_view(), name='edit-comment'),
     path('comment/<int:pk>/delete/', CommentDeleteView.as_view(), name='delete-comment'),
+
+    # tags urls
+     path('search/', views.post_search, name='post_search'),
+    path('tags/<slug:tag_slug>/', views.post_by_tag, name='post_by_tag'),
 ]
 
 
