@@ -5,7 +5,14 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserChangeForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from .models import Post
+from .models import Post, Comment
+
+from django.shortcuts import get_object_or_404, redirect
+from django.urls import reverse_lazy
+from .forms import CommentForm
+
+
+
 
 class PostListView(ListView):
     model = Post
@@ -94,3 +101,37 @@ def profile_edit(request):
     else:
         form = UserChangeForm(instance=request.user)
     return render(request, 'profile_edit.html', {'form': form})
+
+
+
+# comment section
+@login_required
+def add_comment(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.author = request.user
+            comment.save()
+            return redirect('post-detail', pk=post.pk)
+    else:
+        form = CommentForm()
+    return render(request, 'blog/comment_form.html', {'form': form})
+
+class CommentUpdateView(UpdateView):
+    model = Comment
+    form_class = CommentForm
+    template_name = 'blog/comment_form.html'
+
+    def get_queryset(self):
+        return Comment.objects.filter(author=self.request.user)
+
+class CommentDeleteView(DeleteView):
+    model = Comment
+    template_name = 'blog/comment_confirm_delete.html'
+    success_url = reverse_lazy('post-list')
+
+    def get_queryset(self):
+        return Comment.objects.filter(author=self.request.user)
