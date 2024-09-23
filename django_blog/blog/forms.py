@@ -3,11 +3,15 @@ from django.contrib.auth.forms import CustomUserCreationForm
 from django.contrib.auth.models import UserAttributeSimilarityValidator
 from .models import Post
 from .models import Comment
+from taggit.forms import TagWidget
 
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['title', 'content', 'tags']
+         widgets = {
+            'tags': TagWidget(attrs={'class': 'form-control', 'placeholder': 'Add tags here...'}),
+        }
 
 
 class CustomUserCreationForm(UserCreationForm):
