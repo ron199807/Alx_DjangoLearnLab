@@ -6,27 +6,33 @@ from rest_framework.validators import UniqueValidator
 User = get_user_model()
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
+    # Use CharField to handle the password securely
+    password = serializers.CharField(
+        write_only=True,
+        required=True,
+        min_length=8,
+        style={'input_type': 'password'}  # To mask the password in forms
+    )
     email = serializers.EmailField(
         required=True,
         validators=[UniqueValidator(queryset=User.objects.all())]
     )
-    password = serializers.CharField(write_only=True, min_length=8)
 
     class Meta:
         model = User
         fields = ['username', 'email', 'password', 'bio', 'profile_picture']
 
     def create(self, validated_data):
-        # Create a new user
-        user = User.objects.create_user(
+        # Use get_user_model().objects.create_user() to create a new user
+        user = get_user_model().objects.create_user(
             username=validated_data['username'],
             email=validated_data['email'],
-            password=validated_data['password'],
+            password=validated_data['password'],  # Password is hashed automatically by Django
             bio=validated_data.get('bio', ''),
             profile_picture=validated_data.get('profile_picture', None),
         )
 
-        # Create an auth token for the new user
+        # Generate a token for the newly registered user
         Token.objects.create(user=user)
 
         return user
