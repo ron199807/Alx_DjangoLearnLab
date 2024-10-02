@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 from rest_framework.validators import UniqueValidator
 
 User = get_user_model()
+serializers.CharField()
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
     # Use CharField to handle the password securely
@@ -23,7 +24,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         fields = ['username', 'email', 'password', 'bio', 'profile_picture']
 
     def create(self, validated_data):
-        # Use get_user_model().objects.create_user() to create a new user
+    
         user = get_user_model().objects.create_user(
             username=validated_data['username'],
             email=validated_data['email'],
