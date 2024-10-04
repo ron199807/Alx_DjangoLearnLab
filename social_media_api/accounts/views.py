@@ -39,6 +39,14 @@ class LoginUser(ObtainAuthToken):
             'username': user.username
         })
 
+class ListUsersView(generics.GenericAPIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        users = CustomUser.objects.all()  # List all users
+        serializer = CustomUserSerializer(users, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
 # Follow a user
 class FollowUserView(generics.GenericAPIView):
     permission_classes = [IsAuthenticated]
