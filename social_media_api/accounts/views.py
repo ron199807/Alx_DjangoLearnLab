@@ -40,7 +40,7 @@ class LoginUser(ObtainAuthToken):
         })
 
 class ListUsersView(generics.GenericAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
         users = CustomUser.objects.all()  # List all users
@@ -49,7 +49,7 @@ class ListUsersView(generics.GenericAPIView):
 
 # Follow a user
 class FollowUserView(generics.GenericAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, user_id):
         try:
@@ -65,7 +65,7 @@ class FollowUserView(generics.GenericAPIView):
 
 # Unfollow a user
 class UnfollowUserView(generics.GenericAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, user_id):
         try:
@@ -78,7 +78,7 @@ class UnfollowUserView(generics.GenericAPIView):
 
 # List followers of a user
 class ListFollowersView(generics.GenericAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, user_id):
         try:
@@ -92,7 +92,7 @@ class ListFollowersView(generics.GenericAPIView):
 
 # List users that the current user is following
 class ListFollowingView(generics.GenericAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, user_id):
         try:
