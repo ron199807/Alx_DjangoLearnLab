@@ -37,10 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'accounts',
     'rest_framework',
     'rest_framework.authtoken',
+    'drf_yasg',
     'posts',
+    'accounts',
+    #'notifiction',
+    
 ]
 
 MIDDLEWARE = [
@@ -137,13 +140,14 @@ REST_FRAMEWORK = {
     ],
 
     'DEFAULT_PAGINATION_CLASS':[
-        'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10,
+        'rest_framework.pagination.PageNumberPagination',],
+        
+    'PAGE_SIZE':[
+        10,
 
     ],
 }
 
-INSTALLED_APPS += ['rest_framework_swagger']
 
 
 
