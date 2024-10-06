@@ -1,8 +1,8 @@
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .models import Post, Like
-from notifications.models import Notification
+from posts.models import Post, Like
+from notification.models import Notification
 from rest_framework.permissions import IsAuthenticated
 
 
