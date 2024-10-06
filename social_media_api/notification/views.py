@@ -2,13 +2,15 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from posts.models import Post, Like
-from notification.models import Notification
+from notifications.models import Notification  # Ensure this import path is correct
 from rest_framework.permissions import IsAuthenticated
-
+from django.shortcuts import get_object_or_404
 
 class LikePostView(APIView):
+    permission_classes = [IsAuthenticated]
+
     def post(self, request, pk):
-        post = Post.objects.get(pk=pk)
+        post = get_object_or_404(Post, pk=pk)
         user = request.user
 
         if Like.objects.filter(user=user, post=post).exists():
@@ -16,7 +18,7 @@ class LikePostView(APIView):
 
         Like.objects.create(user=user, post=post)
         
-        # Create a notification
+        # Create a notification for the post author
         Notification.objects.create(
             recipient=post.author, actor=user, verb="liked", target=post
         )
@@ -24,8 +26,10 @@ class LikePostView(APIView):
         return Response({"detail": "Post liked."}, status=status.HTTP_200_OK)
 
 class UnlikePostView(APIView):
+    permission_classes = [IsAuthenticated]
+
     def post(self, request, pk):
-        post = Post.objects.get(pk=pk)
+        post = get_object_or_404(Post, pk=pk)
         user = request.user
 
         like = Like.objects.filter(user=user, post=post).first()
@@ -35,8 +39,6 @@ class UnlikePostView(APIView):
         like.delete()
 
         return Response({"detail": "Post unliked."}, status=status.HTTP_200_OK)
-
-
 
 class NotificationListView(APIView):
     permission_classes = [IsAuthenticated]
